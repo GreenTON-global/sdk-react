@@ -1,8 +1,7 @@
 {
   "name": "@greenton/sdk-react",
-  "private": false,
-  "version": "0.0.0",
-  "type": "module",
+  "private": true,
+  "version": "1.0.1",
   "exports": {
     ".": {
       "import": "./dist/main.es.js",

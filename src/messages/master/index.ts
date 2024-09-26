@@ -1,14 +1,14 @@
-import deploy from "./deploy";
-import deployCollection from "./deployCollection";
-import deployDefaultCollection from "./deployDefaultCollection";
-import withdraw from "./withdraw";
+import deploy from './deploy';
+import deployCollection from './deployCollection';
+import deployDefaultCollection from './deployDefaultCollection';
+import withdraw from './withdraw';
 
 const master = {
   deployCollection,
   deployDefaultCollection,
   withdraw,
-  deploy
-}
+  deploy,
+};
 
 export default master;
 

@@ -1,10 +1,10 @@
-import changeTree from "./changeTree";
-import transferCollection from "./transferCollection";
-import mint from "./mint";
-import withdraw from "./withdraw";
-import adminWithdraw from "./adminWithdraw";
-import lock from "./lock";
-import unlock from "./unlock";
+import changeTree from './changeTree';
+import transferCollection from './transferCollection';
+import mint from './mint';
+import withdraw from './withdraw';
+import adminWithdraw from './adminWithdraw';
+import lock from './lock';
+import unlock from './unlock';
 
 const nftCollection = {
   mint,
@@ -13,8 +13,8 @@ const nftCollection = {
   withdraw,
   adminWithdraw,
   lock,
-  unlock
-}
+  unlock,
+};
 
 export default nftCollection;
 

@@ -1,7 +1,7 @@
-import { Message } from "~/types/Message";
-import { beginCell, Cell } from "@ton/core";
-import { MessageArgs } from "~/types/MessageArgs";
-import { Deploy, storeDeploy } from "~/wrappers/MasterContract";
+import { Message } from '~/types/Message';
+import { beginCell, Cell } from '@ton/core';
+import { MessageArgs } from '~/types/MessageArgs';
+import { Deploy, storeDeploy } from '~/wrappers/MasterContract';
 
 export interface MasterDeployArgs extends MessageArgs {
   body: Deploy;
@@ -11,8 +11,8 @@ export default function deploy(src: MasterDeployArgs): Message {
   return {
     address: src.address,
     amount: src.amount.toString(),
-    payload: body(src.body).toBoc().toString()
-  }
+    payload: body(src.body).toBoc().toString(),
+  };
 }
 
 function body(src: Deploy): Cell {

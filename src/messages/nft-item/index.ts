@@ -1,11 +1,11 @@
-import addCoordinates from "./addCoordinates";
-import destroy from "./destroy";
-import getStaticData from "./getStaticData";
-import proveOwnership from "./proveOwnership";
-import reassignSBT from "./reassignSBT";
-import requestOwner from "./requestOwner";
-import revoke from "./revoke";
-import transfer from "./transfer";
+import addCoordinates from './addCoordinates';
+import destroy from './destroy';
+import getStaticData from './getStaticData';
+import proveOwnership from './proveOwnership';
+import reassignSBT from './reassignSBT';
+import requestOwner from './requestOwner';
+import revoke from './revoke';
+import transfer from './transfer';
 
 const nftItem = {
   revoke,
@@ -15,8 +15,8 @@ const nftItem = {
   destroy,
   reassignSBT,
   addCoordinates,
-  requestOwner
-}
+  requestOwner,
+};
 
 export default nftItem;
 
@@ -28,4 +28,3 @@ export type { NftItemReassignSBTArgs } from './reassignSBT';
 export type { NftItemRequestOwnerArgs } from './requestOwner';
 export type { NftItemRevokeArgs } from './revoke';
 export type { NftItemTransferArgs } from './transfer';
-

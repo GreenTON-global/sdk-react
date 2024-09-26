@@ -18,10 +18,10 @@ const nftCollection = {
 
 export default nftCollection;
 
-export type { MintArgs } from './mint';
-export type { TransferCollectionArgs } from './transferCollection';
-export type { ChangeTreeArgs } from './changeTree';
-export type { WithdrawArgs } from './withdraw';
-export type { AdminWithdrawArgs } from './adminWithdraw';
-export type { LockArgs } from './lock';
-export type { UnlockArgs } from './unlock';
+export type { NftCollectionMintArgs } from './mint';
+export type { NftCollectionTransferCollectionArgs } from './transferCollection';
+export type { NftCollectionChangeTreeArgs } from './changeTree';
+export type { NftCollectionWithdrawArgs } from './withdraw';
+export type { NftCollectionAdminWithdrawArgs } from './adminWithdraw';
+export type { NftCollectionLockArgs } from './lock';
+export type { NftCollectionUnlockArgs } from './unlock';

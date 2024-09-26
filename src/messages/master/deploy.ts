@@ -3,11 +3,11 @@ import { beginCell, Cell } from "@ton/core";
 import { MessageArgs } from "~/types/MessageArgs";
 import { Deploy, storeDeploy } from "~/wrappers/MasterContract";
 
-export interface DeployArgs extends MessageArgs {
+export interface MasterDeployArgs extends MessageArgs {
   body: Deploy;
 }
 
-export default function deploy(src: DeployArgs): Message {
+export default function deploy(src: MasterDeployArgs): Message {
   return {
     address: src.address,
     amount: src.amount.toString(),

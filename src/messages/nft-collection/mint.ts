@@ -3,11 +3,11 @@ import { Message } from "~/types/Message";
 import { beginCell, Cell } from "@ton/core";
 import { MessageArgs } from "~/types/MessageArgs";
 
-export interface MintArgs extends MessageArgs {
+export interface NftCollectionMintArgs extends MessageArgs {
   body: Mint
 }
 
-export default function mint(src: MintArgs): Message {
+export default function mint(src: NftCollectionMintArgs): Message {
   return {
     address: src.address,
     amount: src.amount.toString(),

@@ -41,35 +41,9 @@ export function loadStateInit(slice: Slice) {
   return { $$type: 'StateInit' as const, code: _code, data: _data };
 }
 
-function loadTupleStateInit(source: TupleReader) {
-  let _code = source.readCell();
-  let _data = source.readCell();
-  return { $$type: 'StateInit' as const, code: _code, data: _data };
-}
 
-function loadGetterTupleStateInit(source: TupleReader) {
-  let _code = source.readCell();
-  let _data = source.readCell();
-  return { $$type: 'StateInit' as const, code: _code, data: _data };
-}
 
-function storeTupleStateInit(source: StateInit) {
-  let builder = new TupleBuilder();
-  builder.writeCell(source.code);
-  builder.writeCell(source.data);
-  return builder.build();
-}
 
-function dictValueParserStateInit(): DictionaryValue<StateInit> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeStateInit(src)).endCell());
-    },
-    parse: (src) => {
-      return loadStateInit(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Context = {
   $$type: 'Context';
@@ -98,41 +72,9 @@ export function loadContext(slice: Slice) {
   return { $$type: 'Context' as const, bounced: _bounced, sender: _sender, value: _value, raw: _raw };
 }
 
-function loadTupleContext(source: TupleReader) {
-  let _bounced = source.readBoolean();
-  let _sender = source.readAddress();
-  let _value = source.readBigNumber();
-  let _raw = source.readCell().asSlice();
-  return { $$type: 'Context' as const, bounced: _bounced, sender: _sender, value: _value, raw: _raw };
-}
 
-function loadGetterTupleContext(source: TupleReader) {
-  let _bounced = source.readBoolean();
-  let _sender = source.readAddress();
-  let _value = source.readBigNumber();
-  let _raw = source.readCell().asSlice();
-  return { $$type: 'Context' as const, bounced: _bounced, sender: _sender, value: _value, raw: _raw };
-}
 
-function storeTupleContext(source: Context) {
-  let builder = new TupleBuilder();
-  builder.writeBoolean(source.bounced);
-  builder.writeAddress(source.sender);
-  builder.writeNumber(source.value);
-  builder.writeSlice(source.raw.asCell());
-  return builder.build();
-}
 
-function dictValueParserContext(): DictionaryValue<Context> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeContext(src)).endCell());
-    },
-    parse: (src) => {
-      return loadContext(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type SendParameters = {
   $$type: 'SendParameters';
@@ -170,50 +112,9 @@ export function loadSendParameters(slice: Slice) {
   return { $$type: 'SendParameters' as const, bounce: _bounce, to: _to, value: _value, mode: _mode, body: _body, code: _code, data: _data };
 }
 
-function loadTupleSendParameters(source: TupleReader) {
-  let _bounce = source.readBoolean();
-  let _to = source.readAddress();
-  let _value = source.readBigNumber();
-  let _mode = source.readBigNumber();
-  let _body = source.readCellOpt();
-  let _code = source.readCellOpt();
-  let _data = source.readCellOpt();
-  return { $$type: 'SendParameters' as const, bounce: _bounce, to: _to, value: _value, mode: _mode, body: _body, code: _code, data: _data };
-}
 
-function loadGetterTupleSendParameters(source: TupleReader) {
-  let _bounce = source.readBoolean();
-  let _to = source.readAddress();
-  let _value = source.readBigNumber();
-  let _mode = source.readBigNumber();
-  let _body = source.readCellOpt();
-  let _code = source.readCellOpt();
-  let _data = source.readCellOpt();
-  return { $$type: 'SendParameters' as const, bounce: _bounce, to: _to, value: _value, mode: _mode, body: _body, code: _code, data: _data };
-}
 
-function storeTupleSendParameters(source: SendParameters) {
-  let builder = new TupleBuilder();
-  builder.writeBoolean(source.bounce);
-  builder.writeAddress(source.to);
-  builder.writeNumber(source.value);
-  builder.writeNumber(source.mode);
-  builder.writeCell(source.body);
-  builder.writeCell(source.code);
-  builder.writeCell(source.data);
-  return builder.build();
-}
 
-function dictValueParserSendParameters(): DictionaryValue<SendParameters> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeSendParameters(src)).endCell());
-    },
-    parse: (src) => {
-      return loadSendParameters(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Deploy = {
   $$type: 'Deploy';
@@ -235,32 +136,9 @@ export function loadDeploy(slice: Slice) {
   return { $$type: 'Deploy' as const, queryId: _queryId };
 }
 
-function loadTupleDeploy(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  return { $$type: 'Deploy' as const, queryId: _queryId };
-}
 
-function loadGetterTupleDeploy(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  return { $$type: 'Deploy' as const, queryId: _queryId };
-}
 
-function storeTupleDeploy(source: Deploy) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.queryId);
-  return builder.build();
-}
 
-function dictValueParserDeploy(): DictionaryValue<Deploy> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeDeploy(src)).endCell());
-    },
-    parse: (src) => {
-      return loadDeploy(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type DeployOk = {
   $$type: 'DeployOk';
@@ -282,32 +160,9 @@ export function loadDeployOk(slice: Slice) {
   return { $$type: 'DeployOk' as const, queryId: _queryId };
 }
 
-function loadTupleDeployOk(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  return { $$type: 'DeployOk' as const, queryId: _queryId };
-}
 
-function loadGetterTupleDeployOk(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  return { $$type: 'DeployOk' as const, queryId: _queryId };
-}
 
-function storeTupleDeployOk(source: DeployOk) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.queryId);
-  return builder.build();
-}
 
-function dictValueParserDeployOk(): DictionaryValue<DeployOk> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeDeployOk(src)).endCell());
-    },
-    parse: (src) => {
-      return loadDeployOk(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type FactoryDeploy = {
   $$type: 'FactoryDeploy';
@@ -332,35 +187,9 @@ export function loadFactoryDeploy(slice: Slice) {
   return { $$type: 'FactoryDeploy' as const, queryId: _queryId, cashback: _cashback };
 }
 
-function loadTupleFactoryDeploy(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _cashback = source.readAddress();
-  return { $$type: 'FactoryDeploy' as const, queryId: _queryId, cashback: _cashback };
-}
 
-function loadGetterTupleFactoryDeploy(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _cashback = source.readAddress();
-  return { $$type: 'FactoryDeploy' as const, queryId: _queryId, cashback: _cashback };
-}
 
-function storeTupleFactoryDeploy(source: FactoryDeploy) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.queryId);
-  builder.writeAddress(source.cashback);
-  return builder.build();
-}
 
-function dictValueParserFactoryDeploy(): DictionaryValue<FactoryDeploy> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeFactoryDeploy(src)).endCell());
-    },
-    parse: (src) => {
-      return loadFactoryDeploy(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type DeployDefaultCollection = {
   $$type: 'DeployDefaultCollection';
@@ -385,35 +214,9 @@ export function loadDeployDefaultCollection(slice: Slice) {
   return { $$type: 'DeployDefaultCollection' as const, business_address: _business_address, collection_content: _collection_content };
 }
 
-function loadTupleDeployDefaultCollection(source: TupleReader) {
-  let _business_address = source.readAddress();
-  let _collection_content = source.readCell();
-  return { $$type: 'DeployDefaultCollection' as const, business_address: _business_address, collection_content: _collection_content };
-}
 
-function loadGetterTupleDeployDefaultCollection(source: TupleReader) {
-  let _business_address = source.readAddress();
-  let _collection_content = source.readCell();
-  return { $$type: 'DeployDefaultCollection' as const, business_address: _business_address, collection_content: _collection_content };
-}
 
-function storeTupleDeployDefaultCollection(source: DeployDefaultCollection) {
-  let builder = new TupleBuilder();
-  builder.writeAddress(source.business_address);
-  builder.writeCell(source.collection_content);
-  return builder.build();
-}
 
-function dictValueParserDeployDefaultCollection(): DictionaryValue<DeployDefaultCollection> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeDeployDefaultCollection(src)).endCell());
-    },
-    parse: (src) => {
-      return loadDeployDefaultCollection(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type DeployCollection = {
   $$type: 'DeployCollection';
@@ -441,38 +244,9 @@ export function loadDeployCollection(slice: Slice) {
   return { $$type: 'DeployCollection' as const, collection_init: _collection_init, business_address: _business_address, collection_content: _collection_content };
 }
 
-function loadTupleDeployCollection(source: TupleReader) {
-  const _collection_init = loadTupleStateInit(source);
-  let _business_address = source.readAddress();
-  let _collection_content = source.readCell();
-  return { $$type: 'DeployCollection' as const, collection_init: _collection_init, business_address: _business_address, collection_content: _collection_content };
-}
 
-function loadGetterTupleDeployCollection(source: TupleReader) {
-  const _collection_init = loadGetterTupleStateInit(source);
-  let _business_address = source.readAddress();
-  let _collection_content = source.readCell();
-  return { $$type: 'DeployCollection' as const, collection_init: _collection_init, business_address: _business_address, collection_content: _collection_content };
-}
 
-function storeTupleDeployCollection(source: DeployCollection) {
-  let builder = new TupleBuilder();
-  builder.writeTuple(storeTupleStateInit(source.collection_init));
-  builder.writeAddress(source.business_address);
-  builder.writeCell(source.collection_content);
-  return builder.build();
-}
 
-function dictValueParserDeployCollection(): DictionaryValue<DeployCollection> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeDeployCollection(src)).endCell());
-    },
-    parse: (src) => {
-      return loadDeployCollection(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type TransferCollection = {
   $$type: 'TransferCollection';
@@ -500,38 +274,9 @@ export function loadTransferCollection(slice: Slice) {
   return { $$type: 'TransferCollection' as const, business_address: _business_address, admin_address: _admin_address, collection_content: _collection_content };
 }
 
-function loadTupleTransferCollection(source: TupleReader) {
-  let _business_address = source.readAddress();
-  let _admin_address = source.readAddress();
-  let _collection_content = source.readCell();
-  return { $$type: 'TransferCollection' as const, business_address: _business_address, admin_address: _admin_address, collection_content: _collection_content };
-}
 
-function loadGetterTupleTransferCollection(source: TupleReader) {
-  let _business_address = source.readAddress();
-  let _admin_address = source.readAddress();
-  let _collection_content = source.readCell();
-  return { $$type: 'TransferCollection' as const, business_address: _business_address, admin_address: _admin_address, collection_content: _collection_content };
-}
 
-function storeTupleTransferCollection(source: TransferCollection) {
-  let builder = new TupleBuilder();
-  builder.writeAddress(source.business_address);
-  builder.writeAddress(source.admin_address);
-  builder.writeCell(source.collection_content);
-  return builder.build();
-}
 
-function dictValueParserTransferCollection(): DictionaryValue<TransferCollection> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeTransferCollection(src)).endCell());
-    },
-    parse: (src) => {
-      return loadTransferCollection(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type LogEventMintRecord = {
   $$type: 'LogEventMintRecord';
@@ -559,38 +304,9 @@ export function loadLogEventMintRecord(slice: Slice) {
   return { $$type: 'LogEventMintRecord' as const, minter: _minter, item_id: _item_id, generate_number: _generate_number };
 }
 
-function loadTupleLogEventMintRecord(source: TupleReader) {
-  let _minter = source.readAddress();
-  let _item_id = source.readBigNumber();
-  let _generate_number = source.readBigNumber();
-  return { $$type: 'LogEventMintRecord' as const, minter: _minter, item_id: _item_id, generate_number: _generate_number };
-}
 
-function loadGetterTupleLogEventMintRecord(source: TupleReader) {
-  let _minter = source.readAddress();
-  let _item_id = source.readBigNumber();
-  let _generate_number = source.readBigNumber();
-  return { $$type: 'LogEventMintRecord' as const, minter: _minter, item_id: _item_id, generate_number: _generate_number };
-}
 
-function storeTupleLogEventMintRecord(source: LogEventMintRecord) {
-  let builder = new TupleBuilder();
-  builder.writeAddress(source.minter);
-  builder.writeNumber(source.item_id);
-  builder.writeNumber(source.generate_number);
-  return builder.build();
-}
 
-function dictValueParserLogEventMintRecord(): DictionaryValue<LogEventMintRecord> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeLogEventMintRecord(src)).endCell());
-    },
-    parse: (src) => {
-      return loadLogEventMintRecord(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Tree = {
   $$type: 'Tree';
@@ -622,41 +338,9 @@ export function loadTree(slice: Slice) {
   return { $$type: 'Tree' as const, name: _name, type: _type, region: _region, location: _location };
 }
 
-function loadTupleTree(source: TupleReader) {
-  let _name = source.readString();
-  let _type = source.readString();
-  let _region = source.readString();
-  let _location = source.readString();
-  return { $$type: 'Tree' as const, name: _name, type: _type, region: _region, location: _location };
-}
 
-function loadGetterTupleTree(source: TupleReader) {
-  let _name = source.readString();
-  let _type = source.readString();
-  let _region = source.readString();
-  let _location = source.readString();
-  return { $$type: 'Tree' as const, name: _name, type: _type, region: _region, location: _location };
-}
 
-function storeTupleTree(source: Tree) {
-  let builder = new TupleBuilder();
-  builder.writeString(source.name);
-  builder.writeString(source.type);
-  builder.writeString(source.region);
-  builder.writeString(source.location);
-  return builder.build();
-}
 
-function dictValueParserTree(): DictionaryValue<Tree> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeTree(src)).endCell());
-    },
-    parse: (src) => {
-      return loadTree(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Mint = {
   $$type: 'Mint';
@@ -684,38 +368,9 @@ export function loadMint(slice: Slice) {
   return { $$type: 'Mint' as const, tree: _tree, destination: _destination, order_id: _order_id };
 }
 
-function loadTupleMint(source: TupleReader) {
-  const _tree = loadTupleTree(source);
-  let _destination = source.readAddress();
-  let _order_id = source.readBigNumberOpt();
-  return { $$type: 'Mint' as const, tree: _tree, destination: _destination, order_id: _order_id };
-}
 
-function loadGetterTupleMint(source: TupleReader) {
-  const _tree = loadGetterTupleTree(source);
-  let _destination = source.readAddress();
-  let _order_id = source.readBigNumberOpt();
-  return { $$type: 'Mint' as const, tree: _tree, destination: _destination, order_id: _order_id };
-}
 
-function storeTupleMint(source: Mint) {
-  let builder = new TupleBuilder();
-  builder.writeTuple(storeTupleTree(source.tree));
-  builder.writeAddress(source.destination);
-  builder.writeNumber(source.order_id);
-  return builder.build();
-}
 
-function dictValueParserMint(): DictionaryValue<Mint> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeMint(src)).endCell());
-    },
-    parse: (src) => {
-      return loadMint(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type ChangeTree = {
   $$type: 'ChangeTree';
@@ -740,35 +395,9 @@ export function loadChangeTree(slice: Slice) {
   return { $$type: 'ChangeTree' as const, tree: _tree, price: _price };
 }
 
-function loadTupleChangeTree(source: TupleReader) {
-  const _tree = loadTupleTree(source);
-  let _price = source.readBigNumberOpt();
-  return { $$type: 'ChangeTree' as const, tree: _tree, price: _price };
-}
 
-function loadGetterTupleChangeTree(source: TupleReader) {
-  const _tree = loadGetterTupleTree(source);
-  let _price = source.readBigNumberOpt();
-  return { $$type: 'ChangeTree' as const, tree: _tree, price: _price };
-}
 
-function storeTupleChangeTree(source: ChangeTree) {
-  let builder = new TupleBuilder();
-  builder.writeTuple(storeTupleTree(source.tree));
-  builder.writeNumber(source.price);
-  return builder.build();
-}
 
-function dictValueParserChangeTree(): DictionaryValue<ChangeTree> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeChangeTree(src)).endCell());
-    },
-    parse: (src) => {
-      return loadChangeTree(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Transfer = {
   $$type: 'Transfer';
@@ -805,47 +434,9 @@ export function loadTransfer(slice: Slice) {
   return { $$type: 'Transfer' as const, query_id: _query_id, new_owner: _new_owner, business_address: _business_address, custom_payload: _custom_payload, forward_amount: _forward_amount, forward_payload: _forward_payload };
 }
 
-function loadTupleTransfer(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _new_owner = source.readAddress();
-  let _business_address = source.readAddress();
-  let _custom_payload = source.readCellOpt();
-  let _forward_amount = source.readBigNumber();
-  let _forward_payload = source.readCell().asSlice();
-  return { $$type: 'Transfer' as const, query_id: _query_id, new_owner: _new_owner, business_address: _business_address, custom_payload: _custom_payload, forward_amount: _forward_amount, forward_payload: _forward_payload };
-}
 
-function loadGetterTupleTransfer(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _new_owner = source.readAddress();
-  let _business_address = source.readAddress();
-  let _custom_payload = source.readCellOpt();
-  let _forward_amount = source.readBigNumber();
-  let _forward_payload = source.readCell().asSlice();
-  return { $$type: 'Transfer' as const, query_id: _query_id, new_owner: _new_owner, business_address: _business_address, custom_payload: _custom_payload, forward_amount: _forward_amount, forward_payload: _forward_payload };
-}
 
-function storeTupleTransfer(source: Transfer) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  builder.writeAddress(source.new_owner);
-  builder.writeAddress(source.business_address);
-  builder.writeCell(source.custom_payload);
-  builder.writeNumber(source.forward_amount);
-  builder.writeSlice(source.forward_payload.asCell());
-  return builder.build();
-}
 
-function dictValueParserTransfer(): DictionaryValue<Transfer> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeTransfer(src)).endCell());
-    },
-    parse: (src) => {
-      return loadTransfer(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type OwnershipAssigned = {
   $$type: 'OwnershipAssigned';
@@ -873,38 +464,9 @@ export function loadOwnershipAssigned(slice: Slice) {
   return { $$type: 'OwnershipAssigned' as const, query_id: _query_id, prev_owner: _prev_owner, forward_payload: _forward_payload };
 }
 
-function loadTupleOwnershipAssigned(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _prev_owner = source.readAddress();
-  let _forward_payload = source.readCell().asSlice();
-  return { $$type: 'OwnershipAssigned' as const, query_id: _query_id, prev_owner: _prev_owner, forward_payload: _forward_payload };
-}
 
-function loadGetterTupleOwnershipAssigned(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _prev_owner = source.readAddress();
-  let _forward_payload = source.readCell().asSlice();
-  return { $$type: 'OwnershipAssigned' as const, query_id: _query_id, prev_owner: _prev_owner, forward_payload: _forward_payload };
-}
 
-function storeTupleOwnershipAssigned(source: OwnershipAssigned) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  builder.writeAddress(source.prev_owner);
-  builder.writeSlice(source.forward_payload.asCell());
-  return builder.build();
-}
 
-function dictValueParserOwnershipAssigned(): DictionaryValue<OwnershipAssigned> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeOwnershipAssigned(src)).endCell());
-    },
-    parse: (src) => {
-      return loadOwnershipAssigned(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Excesses = {
   $$type: 'Excesses';
@@ -926,32 +488,9 @@ export function loadExcesses(slice: Slice) {
   return { $$type: 'Excesses' as const, query_id: _query_id };
 }
 
-function loadTupleExcesses(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'Excesses' as const, query_id: _query_id };
-}
 
-function loadGetterTupleExcesses(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'Excesses' as const, query_id: _query_id };
-}
 
-function storeTupleExcesses(source: Excesses) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  return builder.build();
-}
 
-function dictValueParserExcesses(): DictionaryValue<Excesses> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeExcesses(src)).endCell());
-    },
-    parse: (src) => {
-      return loadExcesses(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type GetStaticData = {
   $$type: 'GetStaticData';
@@ -973,32 +512,9 @@ export function loadGetStaticData(slice: Slice) {
   return { $$type: 'GetStaticData' as const, query_id: _query_id };
 }
 
-function loadTupleGetStaticData(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'GetStaticData' as const, query_id: _query_id };
-}
 
-function loadGetterTupleGetStaticData(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'GetStaticData' as const, query_id: _query_id };
-}
 
-function storeTupleGetStaticData(source: GetStaticData) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  return builder.build();
-}
 
-function dictValueParserGetStaticData(): DictionaryValue<GetStaticData> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeGetStaticData(src)).endCell());
-    },
-    parse: (src) => {
-      return loadGetStaticData(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type ReportStaticData = {
   $$type: 'ReportStaticData';
@@ -1026,38 +542,9 @@ export function loadReportStaticData(slice: Slice) {
   return { $$type: 'ReportStaticData' as const, query_id: _query_id, index: _index, collection: _collection };
 }
 
-function loadTupleReportStaticData(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _index = source.readBigNumber();
-  let _collection = source.readAddress();
-  return { $$type: 'ReportStaticData' as const, query_id: _query_id, index: _index, collection: _collection };
-}
 
-function loadGetterTupleReportStaticData(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _index = source.readBigNumber();
-  let _collection = source.readAddress();
-  return { $$type: 'ReportStaticData' as const, query_id: _query_id, index: _index, collection: _collection };
-}
 
-function storeTupleReportStaticData(source: ReportStaticData) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  builder.writeNumber(source.index);
-  builder.writeAddress(source.collection);
-  return builder.build();
-}
 
-function dictValueParserReportStaticData(): DictionaryValue<ReportStaticData> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeReportStaticData(src)).endCell());
-    },
-    parse: (src) => {
-      return loadReportStaticData(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Coordinates = {
   $$type: 'Coordinates';
@@ -1080,11 +567,6 @@ export function loadCoordinates(slice: Slice) {
   return { $$type: 'Coordinates' as const, latitude: _latitude, longitude: _longitude };
 }
 
-function loadTupleCoordinates(source: TupleReader) {
-  let _latitude = source.readBigNumberOpt();
-  let _longitude = source.readBigNumberOpt();
-  return { $$type: 'Coordinates' as const, latitude: _latitude, longitude: _longitude };
-}
 
 function loadGetterTupleCoordinates(source: TupleReader) {
   let _latitude = source.readBigNumberOpt();
@@ -1092,23 +574,7 @@ function loadGetterTupleCoordinates(source: TupleReader) {
   return { $$type: 'Coordinates' as const, latitude: _latitude, longitude: _longitude };
 }
 
-function storeTupleCoordinates(source: Coordinates) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.latitude);
-  builder.writeNumber(source.longitude);
-  return builder.build();
-}
 
-function dictValueParserCoordinates(): DictionaryValue<Coordinates> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeCoordinates(src)).endCell());
-    },
-    parse: (src) => {
-      return loadCoordinates(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type AddCoordinates = {
   $$type: 'AddCoordinates';
@@ -1130,32 +596,9 @@ export function loadAddCoordinates(slice: Slice) {
   return { $$type: 'AddCoordinates' as const, coordinates: _coordinates };
 }
 
-function loadTupleAddCoordinates(source: TupleReader) {
-  const _coordinates = loadTupleCoordinates(source);
-  return { $$type: 'AddCoordinates' as const, coordinates: _coordinates };
-}
 
-function loadGetterTupleAddCoordinates(source: TupleReader) {
-  const _coordinates = loadGetterTupleCoordinates(source);
-  return { $$type: 'AddCoordinates' as const, coordinates: _coordinates };
-}
 
-function storeTupleAddCoordinates(source: AddCoordinates) {
-  let builder = new TupleBuilder();
-  builder.writeTuple(storeTupleCoordinates(source.coordinates));
-  return builder.build();
-}
 
-function dictValueParserAddCoordinates(): DictionaryValue<AddCoordinates> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeAddCoordinates(src)).endCell());
-    },
-    parse: (src) => {
-      return loadAddCoordinates(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type ProveOwnership = {
   $$type: 'ProveOwnership';
@@ -1186,41 +629,9 @@ export function loadProveOwnership(slice: Slice) {
   return { $$type: 'ProveOwnership' as const, query_id: _query_id, dest: _dest, forward_payload: _forward_payload, with_content: _with_content };
 }
 
-function loadTupleProveOwnership(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _dest = source.readAddress();
-  let _forward_payload = source.readCell();
-  let _with_content = source.readBoolean();
-  return { $$type: 'ProveOwnership' as const, query_id: _query_id, dest: _dest, forward_payload: _forward_payload, with_content: _with_content };
-}
 
-function loadGetterTupleProveOwnership(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _dest = source.readAddress();
-  let _forward_payload = source.readCell();
-  let _with_content = source.readBoolean();
-  return { $$type: 'ProveOwnership' as const, query_id: _query_id, dest: _dest, forward_payload: _forward_payload, with_content: _with_content };
-}
 
-function storeTupleProveOwnership(source: ProveOwnership) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  builder.writeAddress(source.dest);
-  builder.writeCell(source.forward_payload);
-  builder.writeBoolean(source.with_content);
-  return builder.build();
-}
 
-function dictValueParserProveOwnership(): DictionaryValue<ProveOwnership> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeProveOwnership(src)).endCell());
-    },
-    parse: (src) => {
-      return loadProveOwnership(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type OwnershipProof = {
   $$type: 'OwnershipProof';
@@ -1257,47 +668,9 @@ export function loadOwnershipProof(slice: Slice) {
   return { $$type: 'OwnershipProof' as const, query_id: _query_id, item_id: _item_id, owner: _owner, data: _data, revoked_at: _revoked_at, content: _content };
 }
 
-function loadTupleOwnershipProof(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _item_id = source.readBigNumber();
-  let _owner = source.readAddress();
-  let _data = source.readCell();
-  let _revoked_at = source.readBigNumber();
-  let _content = source.readCellOpt();
-  return { $$type: 'OwnershipProof' as const, query_id: _query_id, item_id: _item_id, owner: _owner, data: _data, revoked_at: _revoked_at, content: _content };
-}
 
-function loadGetterTupleOwnershipProof(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _item_id = source.readBigNumber();
-  let _owner = source.readAddress();
-  let _data = source.readCell();
-  let _revoked_at = source.readBigNumber();
-  let _content = source.readCellOpt();
-  return { $$type: 'OwnershipProof' as const, query_id: _query_id, item_id: _item_id, owner: _owner, data: _data, revoked_at: _revoked_at, content: _content };
-}
 
-function storeTupleOwnershipProof(source: OwnershipProof) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  builder.writeNumber(source.item_id);
-  builder.writeAddress(source.owner);
-  builder.writeCell(source.data);
-  builder.writeNumber(source.revoked_at);
-  builder.writeCell(source.content);
-  return builder.build();
-}
 
-function dictValueParserOwnershipProof(): DictionaryValue<OwnershipProof> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeOwnershipProof(src)).endCell());
-    },
-    parse: (src) => {
-      return loadOwnershipProof(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type RequestOwner = {
   $$type: 'RequestOwner';
@@ -1328,41 +701,9 @@ export function loadRequestOwner(slice: Slice) {
   return { $$type: 'RequestOwner' as const, query_id: _query_id, dest: _dest, forward_payload: _forward_payload, with_content: _with_content };
 }
 
-function loadTupleRequestOwner(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _dest = source.readAddress();
-  let _forward_payload = source.readCell();
-  let _with_content = source.readBoolean();
-  return { $$type: 'RequestOwner' as const, query_id: _query_id, dest: _dest, forward_payload: _forward_payload, with_content: _with_content };
-}
 
-function loadGetterTupleRequestOwner(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _dest = source.readAddress();
-  let _forward_payload = source.readCell();
-  let _with_content = source.readBoolean();
-  return { $$type: 'RequestOwner' as const, query_id: _query_id, dest: _dest, forward_payload: _forward_payload, with_content: _with_content };
-}
 
-function storeTupleRequestOwner(source: RequestOwner) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  builder.writeAddress(source.dest);
-  builder.writeCell(source.forward_payload);
-  builder.writeBoolean(source.with_content);
-  return builder.build();
-}
 
-function dictValueParserRequestOwner(): DictionaryValue<RequestOwner> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeRequestOwner(src)).endCell());
-    },
-    parse: (src) => {
-      return loadRequestOwner(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type OwnerInfo = {
   $$type: 'OwnerInfo';
@@ -1402,50 +743,9 @@ export function loadOwnerInfo(slice: Slice) {
   return { $$type: 'OwnerInfo' as const, query_id: _query_id, item_id: _item_id, initiator: _initiator, owner: _owner, data: _data, revoked_at: _revoked_at, content: _content };
 }
 
-function loadTupleOwnerInfo(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _item_id = source.readBigNumber();
-  let _initiator = source.readAddress();
-  let _owner = source.readAddress();
-  let _data = source.readCell();
-  let _revoked_at = source.readBigNumber();
-  let _content = source.readCellOpt();
-  return { $$type: 'OwnerInfo' as const, query_id: _query_id, item_id: _item_id, initiator: _initiator, owner: _owner, data: _data, revoked_at: _revoked_at, content: _content };
-}
 
-function loadGetterTupleOwnerInfo(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  let _item_id = source.readBigNumber();
-  let _initiator = source.readAddress();
-  let _owner = source.readAddress();
-  let _data = source.readCell();
-  let _revoked_at = source.readBigNumber();
-  let _content = source.readCellOpt();
-  return { $$type: 'OwnerInfo' as const, query_id: _query_id, item_id: _item_id, initiator: _initiator, owner: _owner, data: _data, revoked_at: _revoked_at, content: _content };
-}
 
-function storeTupleOwnerInfo(source: OwnerInfo) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  builder.writeNumber(source.item_id);
-  builder.writeAddress(source.initiator);
-  builder.writeAddress(source.owner);
-  builder.writeCell(source.data);
-  builder.writeNumber(source.revoked_at);
-  builder.writeCell(source.content);
-  return builder.build();
-}
 
-function dictValueParserOwnerInfo(): DictionaryValue<OwnerInfo> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeOwnerInfo(src)).endCell());
-    },
-    parse: (src) => {
-      return loadOwnerInfo(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Destroy = {
   $$type: 'Destroy';
@@ -1467,32 +767,9 @@ export function loadDestroy(slice: Slice) {
   return { $$type: 'Destroy' as const, query_id: _query_id };
 }
 
-function loadTupleDestroy(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'Destroy' as const, query_id: _query_id };
-}
 
-function loadGetterTupleDestroy(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'Destroy' as const, query_id: _query_id };
-}
 
-function storeTupleDestroy(source: Destroy) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  return builder.build();
-}
 
-function dictValueParserDestroy(): DictionaryValue<Destroy> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeDestroy(src)).endCell());
-    },
-    parse: (src) => {
-      return loadDestroy(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type Revoke = {
   $$type: 'Revoke';
@@ -1514,32 +791,9 @@ export function loadRevoke(slice: Slice) {
   return { $$type: 'Revoke' as const, query_id: _query_id };
 }
 
-function loadTupleRevoke(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'Revoke' as const, query_id: _query_id };
-}
 
-function loadGetterTupleRevoke(source: TupleReader) {
-  let _query_id = source.readBigNumber();
-  return { $$type: 'Revoke' as const, query_id: _query_id };
-}
 
-function storeTupleRevoke(source: Revoke) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.query_id);
-  return builder.build();
-}
 
-function dictValueParserRevoke(): DictionaryValue<Revoke> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeRevoke(src)).endCell());
-    },
-    parse: (src) => {
-      return loadRevoke(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type ReassignSBT = {
   $$type: 'ReassignSBT';
@@ -1561,32 +815,9 @@ export function loadReassignSBT(slice: Slice) {
   return { $$type: 'ReassignSBT' as const, new_owner: _new_owner };
 }
 
-function loadTupleReassignSBT(source: TupleReader) {
-  let _new_owner = source.readAddress();
-  return { $$type: 'ReassignSBT' as const, new_owner: _new_owner };
-}
 
-function loadGetterTupleReassignSBT(source: TupleReader) {
-  let _new_owner = source.readAddress();
-  return { $$type: 'ReassignSBT' as const, new_owner: _new_owner };
-}
 
-function storeTupleReassignSBT(source: ReassignSBT) {
-  let builder = new TupleBuilder();
-  builder.writeAddress(source.new_owner);
-  return builder.build();
-}
 
-function dictValueParserReassignSBT(): DictionaryValue<ReassignSBT> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeReassignSBT(src)).endCell());
-    },
-    parse: (src) => {
-      return loadReassignSBT(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type CollectionData = {
   $$type: 'CollectionData';
@@ -1612,38 +843,9 @@ export function loadCollectionData(slice: Slice) {
   return { $$type: 'CollectionData' as const, next_item_index: _next_item_index, collection_content: _collection_content, owner_address: _owner_address };
 }
 
-function loadTupleCollectionData(source: TupleReader) {
-  let _next_item_index = source.readBigNumber();
-  let _collection_content = source.readCell();
-  let _owner_address = source.readAddress();
-  return { $$type: 'CollectionData' as const, next_item_index: _next_item_index, collection_content: _collection_content, owner_address: _owner_address };
-}
 
-function loadGetterTupleCollectionData(source: TupleReader) {
-  let _next_item_index = source.readBigNumber();
-  let _collection_content = source.readCell();
-  let _owner_address = source.readAddress();
-  return { $$type: 'CollectionData' as const, next_item_index: _next_item_index, collection_content: _collection_content, owner_address: _owner_address };
-}
 
-function storeTupleCollectionData(source: CollectionData) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.next_item_index);
-  builder.writeCell(source.collection_content);
-  builder.writeAddress(source.owner_address);
-  return builder.build();
-}
 
-function dictValueParserCollectionData(): DictionaryValue<CollectionData> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeCollectionData(src)).endCell());
-    },
-    parse: (src) => {
-      return loadCollectionData(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type NftCollection$Data = {
   $$type: 'NftCollection$Data';
@@ -1687,56 +889,9 @@ export function loadNftCollection$Data(slice: Slice) {
   return { $$type: 'NftCollection$Data' as const, collection_index: _collection_index, admin_address: _admin_address, business_address: _business_address, collection_content: _collection_content, next_item_index: _next_item_index, avaliable_trees: _avaliable_trees, is_locked: _is_locked, admin_funds: _admin_funds, catalog_size: _catalog_size };
 }
 
-function loadTupleNftCollection$Data(source: TupleReader) {
-  let _collection_index = source.readBigNumber();
-  let _admin_address = source.readAddress();
-  let _business_address = source.readAddress();
-  let _collection_content = source.readCell();
-  let _next_item_index = source.readBigNumber();
-  let _avaliable_trees = Dictionary.loadDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Uint(16), source.readCellOpt());
-  let _is_locked = source.readBoolean();
-  let _admin_funds = source.readBigNumber();
-  let _catalog_size = source.readBigNumber();
-  return { $$type: 'NftCollection$Data' as const, collection_index: _collection_index, admin_address: _admin_address, business_address: _business_address, collection_content: _collection_content, next_item_index: _next_item_index, avaliable_trees: _avaliable_trees, is_locked: _is_locked, admin_funds: _admin_funds, catalog_size: _catalog_size };
-}
 
-function loadGetterTupleNftCollection$Data(source: TupleReader) {
-  let _collection_index = source.readBigNumber();
-  let _admin_address = source.readAddress();
-  let _business_address = source.readAddress();
-  let _collection_content = source.readCell();
-  let _next_item_index = source.readBigNumber();
-  let _avaliable_trees = Dictionary.loadDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Uint(16), source.readCellOpt());
-  let _is_locked = source.readBoolean();
-  let _admin_funds = source.readBigNumber();
-  let _catalog_size = source.readBigNumber();
-  return { $$type: 'NftCollection$Data' as const, collection_index: _collection_index, admin_address: _admin_address, business_address: _business_address, collection_content: _collection_content, next_item_index: _next_item_index, avaliable_trees: _avaliable_trees, is_locked: _is_locked, admin_funds: _admin_funds, catalog_size: _catalog_size };
-}
 
-function storeTupleNftCollection$Data(source: NftCollection$Data) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.collection_index);
-  builder.writeAddress(source.admin_address);
-  builder.writeAddress(source.business_address);
-  builder.writeCell(source.collection_content);
-  builder.writeNumber(source.next_item_index);
-  builder.writeCell(source.avaliable_trees.size > 0 ? beginCell().storeDictDirect(source.avaliable_trees, Dictionary.Keys.BigUint(256), Dictionary.Values.Uint(16)).endCell() : null);
-  builder.writeBoolean(source.is_locked);
-  builder.writeNumber(source.admin_funds);
-  builder.writeNumber(source.catalog_size);
-  return builder.build();
-}
 
-function dictValueParserNftCollection$Data(): DictionaryValue<NftCollection$Data> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeNftCollection$Data(src)).endCell());
-    },
-    parse: (src) => {
-      return loadNftCollection$Data(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type NftData = {
   $$type: 'NftData';
@@ -1768,14 +923,6 @@ export function loadNftData(slice: Slice) {
   return { $$type: 'NftData' as const, is_initialized: _is_initialized, index: _index, collection_address: _collection_address, owner_address: _owner_address, individual_content: _individual_content };
 }
 
-function loadTupleNftData(source: TupleReader) {
-  let _is_initialized = source.readBoolean();
-  let _index = source.readBigNumber();
-  let _collection_address = source.readAddress();
-  let _owner_address = source.readAddress();
-  let _individual_content = source.readCell();
-  return { $$type: 'NftData' as const, is_initialized: _is_initialized, index: _index, collection_address: _collection_address, owner_address: _owner_address, individual_content: _individual_content };
-}
 
 function loadGetterTupleNftData(source: TupleReader) {
   let _is_initialized = source.readBoolean();
@@ -1786,26 +933,7 @@ function loadGetterTupleNftData(source: TupleReader) {
   return { $$type: 'NftData' as const, is_initialized: _is_initialized, index: _index, collection_address: _collection_address, owner_address: _owner_address, individual_content: _individual_content };
 }
 
-function storeTupleNftData(source: NftData) {
-  let builder = new TupleBuilder();
-  builder.writeBoolean(source.is_initialized);
-  builder.writeNumber(source.index);
-  builder.writeAddress(source.collection_address);
-  builder.writeAddress(source.owner_address);
-  builder.writeCell(source.individual_content);
-  return builder.build();
-}
 
-function dictValueParserNftData(): DictionaryValue<NftData> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeNftData(src)).endCell());
-    },
-    parse: (src) => {
-      return loadNftData(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type NftItem$Data = {
   $$type: 'NftItem$Data';
@@ -1849,53 +977,9 @@ export function loadNftItem$Data(slice: Slice) {
   return { $$type: 'NftItem$Data' as const, collection_address: _collection_address, index: _index, owner_address: _owner_address, individual_content: _individual_content, is_initialized: _is_initialized, business_address: _business_address, coordinates: _coordinates, admin_address: _admin_address };
 }
 
-function loadTupleNftItem$Data(source: TupleReader) {
-  let _collection_address = source.readAddress();
-  let _index = source.readBigNumber();
-  let _owner_address = source.readAddress();
-  let _individual_content = source.readCell();
-  let _is_initialized = source.readBoolean();
-  let _business_address = source.readAddress();
-  const _coordinates = loadTupleCoordinates(source);
-  let _admin_address = source.readAddress();
-  return { $$type: 'NftItem$Data' as const, collection_address: _collection_address, index: _index, owner_address: _owner_address, individual_content: _individual_content, is_initialized: _is_initialized, business_address: _business_address, coordinates: _coordinates, admin_address: _admin_address };
-}
 
-function loadGetterTupleNftItem$Data(source: TupleReader) {
-  let _collection_address = source.readAddress();
-  let _index = source.readBigNumber();
-  let _owner_address = source.readAddress();
-  let _individual_content = source.readCell();
-  let _is_initialized = source.readBoolean();
-  let _business_address = source.readAddress();
-  const _coordinates = loadGetterTupleCoordinates(source);
-  let _admin_address = source.readAddress();
-  return { $$type: 'NftItem$Data' as const, collection_address: _collection_address, index: _index, owner_address: _owner_address, individual_content: _individual_content, is_initialized: _is_initialized, business_address: _business_address, coordinates: _coordinates, admin_address: _admin_address };
-}
 
-function storeTupleNftItem$Data(source: NftItem$Data) {
-  let builder = new TupleBuilder();
-  builder.writeAddress(source.collection_address);
-  builder.writeNumber(source.index);
-  builder.writeAddress(source.owner_address);
-  builder.writeCell(source.individual_content);
-  builder.writeBoolean(source.is_initialized);
-  builder.writeAddress(source.business_address);
-  builder.writeTuple(storeTupleCoordinates(source.coordinates));
-  builder.writeAddress(source.admin_address);
-  return builder.build();
-}
 
-function dictValueParserNftItem$Data(): DictionaryValue<NftItem$Data> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeNftItem$Data(src)).endCell());
-    },
-    parse: (src) => {
-      return loadNftItem$Data(src.loadRef().beginParse());
-    }
-  }
-}
 
 export type MasterContract$Data = {
   $$type: 'MasterContract$Data';
@@ -1921,38 +1005,9 @@ export function loadMasterContract$Data(slice: Slice) {
   return { $$type: 'MasterContract$Data' as const, contract_id: _contract_id, admin_address: _admin_address, next_collection_index: _next_collection_index };
 }
 
-function loadTupleMasterContract$Data(source: TupleReader) {
-  let _contract_id = source.readBigNumber();
-  let _admin_address = source.readAddress();
-  let _next_collection_index = source.readBigNumber();
-  return { $$type: 'MasterContract$Data' as const, contract_id: _contract_id, admin_address: _admin_address, next_collection_index: _next_collection_index };
-}
 
-function loadGetterTupleMasterContract$Data(source: TupleReader) {
-  let _contract_id = source.readBigNumber();
-  let _admin_address = source.readAddress();
-  let _next_collection_index = source.readBigNumber();
-  return { $$type: 'MasterContract$Data' as const, contract_id: _contract_id, admin_address: _admin_address, next_collection_index: _next_collection_index };
-}
 
-function storeTupleMasterContract$Data(source: MasterContract$Data) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.contract_id);
-  builder.writeAddress(source.admin_address);
-  builder.writeNumber(source.next_collection_index);
-  return builder.build();
-}
 
-function dictValueParserMasterContract$Data(): DictionaryValue<MasterContract$Data> {
-  return {
-    serialize: (src, builder) => {
-      builder.storeRef(beginCell().store(storeMasterContract$Data(src)).endCell());
-    },
-    parse: (src) => {
-      return loadMasterContract$Data(src.loadRef().beginParse());
-    }
-  }
-}
 
 type NftItem_init_args = {
   $$type: 'NftItem_init_args';

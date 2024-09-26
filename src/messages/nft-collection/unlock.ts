@@ -3,9 +3,9 @@ import { beginCell, Cell } from "@ton/core";
 import { MessageArgs } from "~/types/MessageArgs";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface UnlockArgs extends MessageArgs { }
+export interface NftCollectionUnlockArgs extends MessageArgs { }
 
-export default function unlock(src: UnlockArgs): Message {
+export default function unlock(src: NftCollectionUnlockArgs): Message {
   return {
     address: src.address,
     amount: src.amount.toString(),

@@ -12,7 +12,7 @@ const master = {
 
 export default master;
 
-export type { DeployArgs } from './deploy';
-export type { DeployCollectionArgs } from './deployCollection';
-export type { DeployDefaultCollectionArgs } from './deployDefaultCollection';
-export type { WithdrawArgs } from './withdraw';
+export type { MasterDeployArgs } from './deploy';
+export type { MasterDeployCollectionArgs } from './deployCollection';
+export type { MasterDeployDefaultCollectionArgs } from './deployDefaultCollection';
+export type { MasterWithdrawArgs } from './withdraw';

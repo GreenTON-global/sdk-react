@@ -3,11 +3,11 @@ import { Message } from "~/types/Message";
 import { beginCell, Cell } from "@ton/core";
 import { MessageArgs } from "~/types/MessageArgs";
 
-export interface ChangeTreeArgs extends MessageArgs {
+export interface NftCollectionChangeTreeArgs extends MessageArgs {
   body: ChangeTree;
 }
 
-export default function changeTree(src: ChangeTreeArgs): Message {
+export default function changeTree(src: NftCollectionChangeTreeArgs): Message {
   return {
     address: src.address,
     amount: src.amount.toString(),

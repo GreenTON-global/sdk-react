@@ -7,3 +7,9 @@ export { MasterContract, NftCollection, NftItem };
 import messages from './messages';
 
 export { messages as GREENTON_MESSAGES };
+
+import useMaster from './hooks/useMaster';
+import useNftCollection from './hooks/useNftCollection';
+import useNftItem from './hooks/useNftItem';
+
+export { useMaster, useNftCollection, useNftItem };

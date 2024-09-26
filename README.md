@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# @greenton/sdk-react 🌳
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is official NPM package of GreenTON. It contains messages for our contracts. Also here you can find pretty React hooks for sending transaction using TONConnect.
 
-Currently, two official plugins are available:
+# Usage 🛠️
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```tsx
+import { Address, toNano } from '@ton/core';
+import { useNftCollection } from '@greenton/sdk-react';
 
-## Expanding the ESLint configuration
+const MyComponent: React.FC = () => {
+  const { mint } = useNftCollection();
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+  return (
+    <button
+      onClick={() =>
+        mint({
+          validUntil: Math.floor(Date.now() / 1000) + 360,
+          message: {
+            body: {
+              $$type: 'Mint',
+              tree: {
+                $$type: 'Tree',
+                name: 'Oak',
+                type: 'basic',
+                region: 'Africa',
+                location: 'Forest',
+              },
+              destination: Address.parse('0QDasdGa9ZX8dhsF9qOJexH4-V4nh5Bg3Nwv45DA7f0ieoiM'),
+              order_id: null,
+            },
+            address: 'kQA4PYQ9k12KTIMq4HziIoBZefo-ZJNID0s0Du0M-M6Fi7WG',
+            amount: toNano('1'),
+          },
+        })
+      }
+    >
+      Mint!
+    </button>
+  );
+};
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+You are also open to directly use messages. For example to create your custom hook:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
+```tsx
+import { useTonConnectUI } from '@tonconnect/ui-react';
+import { GREENTON_MESSAGES, NftCollectionMintArgs } from '@greenton/sdk-react';
+import { TransactionArgs } from '~/types/TransactionArgs';
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
+export default function usePerfectNftCollection() {
+  const [tonConnectUI] = useTonConnectUI();
+
+  return {
+    mint: (args: TransactionArgs<NftCollectionMintArgs>) =>
+      tonConnectUI.sendTransaction({
+        validUntil: args.validUntil,
+        messages: [GREENTON_MESSAGES.nftCollection.mint(args.message)],
+      }),
+  };
+}
 ```
+
+# Bug reports 👾

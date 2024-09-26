@@ -13,3 +13,5 @@ import useNftCollection from './hooks/useNftCollection';
 import useNftItem from './hooks/useNftItem';
 
 export { useMaster, useNftCollection, useNftItem };
+
+export type { TransactionArgs } from './types/TransactionArgs';

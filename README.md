@@ -62,3 +62,5 @@ export default function usePerfectNftCollection() {
 ```
 
 # Bug reports 👾
+
+If you have experienced any problems or found some bugs, please create an issue in this repository ❤️

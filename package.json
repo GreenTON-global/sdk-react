@@ -1,16 +1,37 @@
 {
   "name": "@greenton/sdk-react",
-  "private": true,
-  "version": "1.0.1",
+  "version": "1.2.14",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GreenTON-global/sdk-react.git"
+  },
+  "homepage": "https://github.com/GreenTON-global/sdk-react",
+  "bugs": {
+    "url": "https://github.com/GreenTON-global/sdk-react/issues"
+  },
+  "keywords": [
+    "GreenTON",
+    "TON",
+    "tonconnect",
+    "sdk",
+    "React",
+    "smart-contracts",
+    "blueprint"
+  ],
+  "author": "GreenTON",
+  "license": "Apache-2.0",
   "exports": {
     ".": {
-      "import": "./dist/main.es.js",
-      "require": "./dist/main.cjs.js"
+      "types": "./dist/main.d.ts",
+      "require": "./dist/main.cjs",
+      "import": "./dist/main.js",
+      "default": "./dist/main.cjs"
     }
   },
-  "main": "./dist/main.cjs.js",
-  "module": "./dist/main.es.js",
-  "typings": "./dist/main.d.ts",
+  "main": "./dist/main.cjs",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "files": [
     "dist"
   ],
@@ -23,9 +44,11 @@
   "dependencies": {
     "@ton/core": "^0.58.1",
     "@ton/ton": "^15.0.0",
-    "@tonconnect/ui-react": "^2.0.9",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@tonconnect/ui-react": "^2.0.9"
+  },
+  "peerDependencies": {
+    "react": ">=18.3.1",
+    "react-dom": ">=18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -43,6 +66,7 @@
     "tslib": "^2.7.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.2.2"
   }
 }

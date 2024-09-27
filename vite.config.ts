@@ -5,9 +5,15 @@ import typescript from '@rollup/plugin-typescript';
 import path from 'path';
 import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+    }),
+  ],
   resolve: {
     alias: [
       {
@@ -16,9 +22,6 @@ export default defineConfig({
       },
     ],
   },
-  server: {
-    port: 3000,
-  },
   build: {
     manifest: true,
     minify: true,
@@ -26,10 +29,11 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/main.ts'),
       fileName: 'main',
+      name: '@greenton/sdk-react',
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: [],
+      external: ['react', 'react-dom', '@tonconnect/ui-react'],
       plugins: [
         typescriptPaths({
           preserveExtensions: true,
@@ -40,6 +44,13 @@ export default defineConfig({
           outDir: 'dist',
         }),
       ],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          '@tonconnect/ui-react': 'TON_CONNECT_UI_REACT',
+        },
+      },
     },
   },
 });
